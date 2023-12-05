@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fractal_webview"
+version = "0.1.0"
+description = ""
+authors = ["Maria Abdullaeva"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11,<3.13"
+pywebview = [{extras = ["cef"], version = "^4.4.1", platform = "win32" },
+{extras = ["gtk"], version = "^4.4.1", platform = "linux" }]
+flask = "^3.0.0"
+
+[tool.poetry.scripts]
+app = "fractal_webview:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

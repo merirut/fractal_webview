@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gosper Curve</title>
+</head>
+<body>
+    <canvas id="gosperCanvas" width="800" height="800"></canvas>
+    <button onclick="drawRainbow()">Redraw with Rainbow Gradient</button>
+    <button onclick="drawBlack()">Revert to Black Color</button>
+
+    <script>
+        let lines = {{ lines | tojson }};
+        const originalColor = '#000000';
+
+        const canvas = document.getElementById('gosperCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawLines(lines, color) {
+            ctx.strokeStyle = color;
+            lines.forEach(line => {
+                ctx.beginPath();
+                ctx.moveTo(line[0][0], line[0][1]);
+                ctx.lineTo(line[1][0], line[1][1]);
+                ctx.stroke();
+            });
+        }
+
+        function drawRainbow() {
+            const rainbowColors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#8b00ff'];
+            lines.forEach((line, index) => {
+                const color = rainbowColors[index % rainbowColors.length];
+                drawLines([line], color);
+            });
+        }
+
+        function drawBlack() {
+            drawLines(lines, originalColor);
+        }
+
+        drawLines(lines, originalColor); // Initial draw with black color
+    </script>
+</body>
+</html>
